@@ -1576,12 +1576,12 @@ $('leave-lobby').addEventListener('click', () => { closeRoom(); goHome(); });
    Home
    ========================================================= */
 function logoHtml() {
-  const words = ['FLIP', 'CHIP'];
-  let k = 0;
-  return words.map((w, wi) => w.split('').map((ch) => {
-    const s = (k % 2 === 0) ? DARK : LIGHT;
-    return `<span class="logo-chip" style="--k:${k++}"><span class="chip${s === LIGHT ? ' is-l' : ''}"><i class="f d">${ch}</i><i class="f l">${ch}</i></span></span>`;
-  }).join('') + (wi === 0 ? '<span class="gap"></span>' : '')).join('');
+  // "Flip" in plain type, then CHIP on chips flipping in a wave
+  const chips = 'CHIP'.split('').map((ch, k) => {
+    const s = k % 2 === 0 ? DARK : LIGHT;
+    return `<span class="logo-chip" style="--k:${k}"><span class="chip${s === LIGHT ? ' is-l' : ''}"><i class="f d">${ch}</i><i class="f l">${ch}</i></span></span>`;
+  }).join('');
+  return `<span class="logo-word">Flip</span>${chips}`;
 }
 
 const paintCpuLevel = segment($('cpu-level'), () => CPU_PREFS.level, (v) => { CPU_PREFS.level = v; store.set('cpu', CPU_PREFS); renderCpuCard(); });
